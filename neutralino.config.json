@@ -33,9 +33,9 @@
     "window": {
       "title": "weeklie",
       "width": 800,
-      "height": 500,
-      "minWidth": 400,
-      "minHeight": 200,
+      "height": 600,
+      "minWidth": 800,
+      "minHeight": 600,
       "fullScreen": false,
       "alwaysOnTop": false,
       "icon": "/resources/icons/appIcon.png",
