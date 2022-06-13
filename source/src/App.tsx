@@ -2,24 +2,35 @@ import React, { Component } from "react";
 import "./App.css";
 import Events from "./Events";
 
-// npm install --save typescript @types/node @types/react @types/react-dom @types/jest
-// npx tsc --init
-
-interface AppState {}
+interface AppState {
+  eventList: string[];
+}
 
 class App extends Component<{}, AppState> {
 
   constructor(props: any) {
     super(props);
     this.state = {
-      
+      eventList: []
     };
   }
 
+  addEvent = () => {
+    let newEvents = this.state.eventList;
+    newEvents.push("Event " + newEvents.length);
+    let newState = {
+      eventList: newEvents
+    };
+    this.setState(newState);
+  }
+
+
   render() {
+
     return (
       <div>
-        <Events></Events>
+        <button onClick={this.addEvent}> Add an event </button>
+        <Events eventList={this.state.eventList}></Events>
       </div>
     );
   }
