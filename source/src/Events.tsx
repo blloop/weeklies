@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 interface Props {
-    eventList: string[];
+    eventList: string[],
+    removeItem(id:number): () => void;
 }
 
 interface State {}
@@ -12,8 +13,9 @@ class Events extends Component<Props, State> {
     let output:any[] = [];
     for (let i = 0; i < this.props.eventList.length; i++) {
       output.push(
-        <div className='event'> List Item: {this.props.eventList[i]} 
+        <div className='event' key={i}> List Item: {this.props.eventList[i]} 
           <input defaultValue={"Description"}></input>
+          <button onClick={this.props.removeItem(i)}></button>
         </div>
       );
     }
