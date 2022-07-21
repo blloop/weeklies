@@ -32,44 +32,68 @@ class App extends Component<{}, AppState> {
   addEvent = () => {
     let newEvents = this.state.eventList;
     let newItem: EventItem = {
-      name: "Event" + this.state.counter,
+      name: "Event " + this.state.counter,
       desc: "Description",
       id: this.state.counter
     }
-    newEvents.push(newItem);    
-    this.saveEvents();
+    newEvents.push(newItem); 
 
     let newState = {
       eventList: newEvents,
       counter: this.state.counter + 1
     }
     this.setState(newState);
+    this.saveEvents();
   }
 
-  removeEvent = (id:number) => {
+  removeEvent = (id: number) => {
     let newEvents = this.state.eventList;
-    for (let i = 0; i < this.state.eventList.length; i++) {
-      if (this.state.eventList[i].id === id) {
+
+    for (let i = 0; i < newEvents.length; i++) {
+      if (newEvents[i].id === id) {
         newEvents.splice(i, 1);
+        break;
       }
     }
     
+    let newState = {
+      eventList: newEvents,
+      counter: this.state.counter
+    }
+    this.setState(newState);
     this.saveEvents();
+  }
+
+  updateEvents = (value: string, id: number) => {
+    let newEvents = this.state.eventList;
+    let input: number = Number(id);
+
+    for (let i = 0; i < newEvents.length; i++) {
+      if (newEvents[i].id === input) {
+        newEvents[i].desc = value;
+        break;
+      }
+    }
 
     let newState = {
       eventList: newEvents,
       counter: this.state.counter
     }
     this.setState(newState);
+    this.saveEvents();
   }
-
 
   render() {
 
     return (
       <div>
+        {/* <button onClick={window.location.reload}>Reload Page </button> */}
         <button onClick={this.addEvent}> Add An Event </button>
-        <Events removeItem={this.removeEvent} eventList={this.state.eventList}></Events>
+        <Events 
+          eventList={this.state.eventList}
+          removeItem={this.removeEvent} 
+          updateText={(value, id) => {this.updateEvents(value, id);}}
+        />
       </div>
     );
   }
